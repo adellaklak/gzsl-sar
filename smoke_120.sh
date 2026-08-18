@@ -1,6 +1,10 @@
+#!/bin/bash
+cd /srv/storage/stars@storage3.sophia.grid5000.fr/alakhlef/SK_zsl/FSVAE-clean-repro
+source /srv/storage/stars@storage3.sophia.grid5000.fr/alakhlef/miniconda3/etc/profile.d/conda.sh
+conda activate gzsl-sar
 ntu=120 st=r
 ve=shift le=ViT-B/32
-nc=10 nepc=1900 ls=200 mode=train gpu=0
+nc=2 nepc=50 ls=200 mode=train gpu=0
 th=50 t=2
 
 python gen_text_feat.py --ntu $ntu --arch $le --gpu $gpu
@@ -14,7 +18,7 @@ do
     wdir_1="results/"$ss"_r"
     wdir_2="results/"$ss"_r_val"
 
-    for tm in "lb" "ad" "md" "ad_md" "lb_ad_md"
+    for tm in "lb_ad_md"
     do
         echo "-----------------------------------"
         echo "NTU"$ntu"u"$ss" "$tm

@@ -1,20 +1,23 @@
-ntu=120 st=r
+#!/bin/bash
+cd /srv/storage/stars@storage3.sophia.grid5000.fr/alakhlef/SK_zsl/FSVAE-clean-repro
+source /srv/storage/stars@storage3.sophia.grid5000.fr/alakhlef/miniconda3/etc/profile.d/conda.sh
+conda activate gzsl-sar
+ntu=60 st=r
 ve=shift le=ViT-B/32
-nc=10 nepc=1900 ls=200 mode=train gpu=0
+nc=2 nepc=50 ls=100 mode=train gpu=0
 th=50 t=2
 
 python gen_text_feat.py --ntu $ntu --arch $le --gpu $gpu
 
 ##'''
-# for ss in 24
-for ss in 10 24
+for ss in 5 12
 do
     tdir="sk_feats/shift_"$ss"_r/"
     edir="sk_feats/shift_val_"$ss"_r/"
     wdir_1="results/"$ss"_r"
     wdir_2="results/"$ss"_r_val"
 
-    for tm in "lb" "ad" "md" "ad_md" "lb_ad_md"
+    for tm in "lb_ad_md"
     do
         echo "-----------------------------------"
         echo "NTU"$ntu"u"$ss" "$tm
@@ -23,7 +26,7 @@ do
         echo "Stage 1"
         echo "..."
         r1=`python train.py \
-        --ntu $ntu --ss $ss --alpha 0.1 --lmd 100 --use_cr_fact 1 --version "neg_t" \
+        --ntu $ntu --ss $ss --alpha 0.5 --lmd 100 --use_cr_fact 1 --version "neg_t" \
         --st $st --ve $ve --le $le --tm $tm --num_cycles $nc --num_epoch_per_cycle $nepc --latent_size $ls --gpu $gpu \
         --phase train --mode $mode --dataset $tdir --wdir $wdir_1`
         za=${r1:0-35:5} c=${r1:0-18:1}
@@ -33,7 +36,7 @@ do
         echo "Stage 2"
         echo "..."
         r2=`python train.py \
-        --ntu $ntu --ss $ss --alpha 0.1 --lmd 100 --use_cr_fact 1 --version "neg_t" \
+        --ntu $ntu --ss $ss --alpha 0.5 --lmd 100 --use_cr_fact 1 --version "neg_t" \
         --st $st --ve $ve --le $le --tm $tm --num_cycles $nc --num_epoch_per_cycle $nepc --latent_size $ls --gpu $gpu \
         --phase val --mode $mode --dataset $edir --wdir $wdir_2`
 
@@ -60,6 +63,3 @@ do
         echo "Finish"
     done
 done
-##'''
-
-
