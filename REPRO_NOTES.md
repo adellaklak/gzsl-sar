@@ -30,3 +30,31 @@
 
 Gain net et cohérent avec les essais DescVAE précédents, concentré sur ss=12 (+9.26 ZSL, +6.59 H).
 Un seul seed testé (seed=5, en dur dans train.py) — pas encore de variance multi-seed sur ce repo.
+
+## Axe `dir` (source->destination du mouvement, genere par Claude)
+
+Premier test lance par erreur : dir concatene A lb_ad_md (4 composantes), pas le protocole voulu.
+Resultat conserve pour info seulement (question dilution vs redondance), PAS representatif du potentiel de dir seul :
+
+| Config | ZSL | H | Delta H vs lb_ad_md (56.99) |
+|---|---|---|---|
+| lb_ad_md_dirv1 | 59.97 | 55.52 | -1.47 |
+| lb_ad_md_dirv2 | 62.45 | 56.60 | -0.39 |
+
+Sous-resultat retenu malgre tout : divergence structurelle entre phrases-paires reduit la casse (+1.08 H entre v1/v2),
+pertinent pour la redaction future de rel/phase/neg.
+
+Vrai protocole (dir seul, et dir substitue a ad) : voir tableau ci-dessous une fois lance.
+
+## Protocole correct : dir seul et dir en substitution d'ad
+
+| Config | ZSL | H | Delta H vs lb_ad_md (56.99) |
+|---|---|---|---|
+| dirv2 seul | 47.77 | 48.01 | (bien au-dessus du hasard ~8.3%, signal reel) |
+| lb_dirv2_md (dir remplace ad) | 65.32 | 59.00 | **+2.01** |
+
+Premier resultat positif net du chantier descriptions. Confirme l'hypothese dilution (echec en ajout ligne precedente)
+vs substitution (succes ici) : dir porte une info non-redondante avec md/lb mais partiellement redondante ou
+moins complementaire quand empilee sur ad plutot que substituee.
+Seed=5 uniquement, ss=12 uniquement pour l'instant. A verifier : autres seeds, autres splits (ss=5, NTU-120),
+et si dir tient aussi en substitution dans une config plus riche (ex: lbac_md_bdavg_cvg).

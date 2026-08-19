@@ -124,3 +124,7 @@ unseen_acc = unseen_count/tot_unseen
 print(f'unseen_accuracy: {unseen_acc :.2%} ')
 h_mean = 2*seen_acc*unseen_acc/(seen_acc + unseen_acc)
 print(f'h_mean: {h_mean :.2%}')
+# --- Sauvegarde par-echantillon pour analyse de confusion par classe ---
+np.save(f'{wdir}/{le}/{tm}/final_preds.npy', np.array(final_preds))
+np.save(f'{wdir}/{le}/{tm}/true_labels.npy', np.array(tars))
+print(f'Predictions sauvegardees: {wdir}/{le}/{tm}/final_preds.npy')
