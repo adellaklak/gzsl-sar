@@ -18,3 +18,15 @@
 ## Fichiers de référence
 - `repro_60.sh` / `repro_120.sh` : run complet lb_ad_md seul (utilisés pour le tableau ci-dessus)
 - `smoke_60.sh` / `smoke_120.sh` : validation rapide du pipeline (nc=2, nepc=50)
+
+## Qwen3-VL-Embedding-8B vs CLIP ViT-B/32 (lb_ad_md, mrl_dim=512, seed=5, epochs pleins)
+
+| Split | ZSL CLIP | ZSL Qwen | H CLIP | H Qwen | H papier (CLIP, †) |
+|---|---|---|---|---|---|
+| NTU-60 ss=5   | 85.32 | 85.18 | 72.55 | 74.30 | 75.7 |
+| NTU-60 ss=12  | 54.04 | 63.30 | 50.40 | 56.99 | 52.1 |
+| NTU-120 ss=10 | 74.45 | 77.86 | 59.39 | 59.46 | 63.3 |
+| NTU-120 ss=24 | 61.99 | 63.26 | 52.98 | 54.01 | 54.7 |
+
+Gain net et cohérent avec les essais DescVAE précédents, concentré sur ss=12 (+9.26 ZSL, +6.59 H).
+Un seul seed testé (seed=5, en dur dans train.py) — pas encore de variance multi-seed sur ce repo.
