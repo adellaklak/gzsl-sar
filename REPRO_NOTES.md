@@ -58,3 +58,19 @@ vs substitution (succes ici) : dir porte une info non-redondante avec md/lb mais
 moins complementaire quand empilee sur ad plutot que substituee.
 Seed=5 uniquement, ss=12 uniquement pour l'instant. A verifier : autres seeds, autres splits (ss=5, NTU-120),
 et si dir tient aussi en substitution dans une config plus riche (ex: lbac_md_bdavg_cvg).
+
+## md patch final : mdv3 — SUCCES (nouveau meilleur all-time)
+
+Apres deux echecs (mdn: reecriture complete, -5.52 H ; mdv2: patch 5 lignes sans contrainte negative, -0.83 H),
+mdv3 applique un principe decouvert dans un chantier separe (generation de squelettes MotionGPT3, sans lien
+technique direct) : une contrainte NEGATIVE explicite ("never lowering", "without touching it") compte autant
+que la description positive pour separer deux classes confondues.
+
+lb_dirv2_mdv3 (ss=12, Qwen) : ZSL=66.33, S=60.67, U=60.09, H=60.38
+vs lb_dirv2_md (H=59.00) : +1.38 H, +3.33 ZSL
+
+Diagnostic par classe : pickup bouge pour la premiere fois du chantier (0.0% -> 12.1%, toujours faible mais signal reel),
+tear_up_paper recupere la regression causee par mdv2, walking_apart continue de s'ameliorer (83.3%).
+walking_towards reste bloque (0.4%) — confirme le diagnostic structurel, pas descriptif.
+
+Nouveau meilleur all-time du chantier descriptions.
