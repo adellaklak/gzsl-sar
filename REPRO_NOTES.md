@@ -74,3 +74,25 @@ tear_up_paper recupere la regression causee par mdv2, walking_apart continue de 
 walking_towards reste bloque (0.4%) — confirme le diagnostic structurel, pas descriptif.
 
 Nouveau meilleur all-time du chantier descriptions.
+
+## Comparaison multi-split du champion (lb_dirv2_mdv3) — premiers résultats bruts
+
+| Split | ZSL | S_Acc | U_Acc | H |
+|---|---|---|---|---|
+| NTU-60 ss=5 | 80.38 | 74.75 | 68.29 | 71.37 |
+| NTU-60 ss=12 | 66.45 | 57.29 | 54.98 | 56.11 |
+| NTU-120 ss=10 | 79.91 | 64.28 | 65.71 | 64.99 |
+| NTU-120 ss=24 | 65.31 | 57.49 | 51.97 | 54.59 |
+
+## Point de reproductibilité découvert (important)
+
+ss=12 donne H=56.11 ici (nœud esterel19) vs H=60.38 la semaine derniere (nœud esterel29), meme config exacte,
+meme seed=5. Stage 1 (ZSL brut) quasi identique (66.45 vs 66.33) — la divergence vient du gating (stages 2-4),
+pas du VAE. Hypothese : cudnn.deterministic garantit la reproductibilite sur le MEME GPU physique, pas forcement
+entre deux modeles de GPU differents. A verifier : relancer plusieurs fois sur le meme noeud pour confirmer,
+et si confirme, toujours reporter le noeud utilise pour tout resultat final cite dans le papier.
+
+## Signal de sur-ajustement a ss=12
+
+lb_dirv2_mdv3 (H=71.37) est INFERIEUR a la baseline simple lb_ad_md (H=74.30) sur ss=5 — jamais teste sur ce
+split avant aujourd'hui, toute la construction (dir, mdv3) optimisee exclusivement sur ss=12. A investiguer.
