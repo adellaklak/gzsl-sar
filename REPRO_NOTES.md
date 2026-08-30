@@ -96,3 +96,23 @@ et si confirme, toujours reporter le noeud utilise pour tout resultat final cite
 
 lb_dirv2_mdv3 (H=71.37) est INFERIEUR a la baseline simple lb_ad_md (H=74.30) sur ss=5 — jamais teste sur ce
 split avant aujourd'hui, toute la construction (dir, mdv3) optimisee exclusivement sur ss=12. A investiguer.
+
+## Reproductibilite inter-noeuds : CONFIRMEE dependante du GPU physique
+
+Rerun exact de lb_dirv2_mdv3 ss=12 sur esterel29 : ZSL=66.33, S=60.67, U=60.09, H=60.38 —
+identique au centime pres au run de la semaine derniere sur le meme noeud. cudnn.deterministic
+garantit donc une reproductibilite bit-a-bit sur un GPU physique donne, mais PAS entre noeuds
+de modeles differents (esterel19 donnait H=56.11 sur la config strictement identique).
+
+REGLE ADOPTEE : tout chiffre final destine au papier doit systematiquement citer le noeud esterel
+utilise, et idealement etre confirme par un rerun sur ce meme noeud avant publication.
+
+## Decouverte critique : les noms esterelN sont des pools multi-machines
+
+Confirme via hostname explicite : esterel29 recouvre au moins esterel29-3 et esterel29-4, physiquement
+distincts, donnant des H differents sur la config identique (59.80 vs 57.65 dans le sweep 12-noeuds).
+"-p esterel29" ne garantit PAS de retomber sur la meme carte. Meme mecanisme que musa (musa-3/4/5 deja vus).
+
+REGLE DEFINITIVE : cibler la machine physique precise avec le suffixe (ex: -p esterel29-4), jamais juste
+le nom de cluster, pour tout resultat destine a etre cite ou reproduit dans le papier. Ajouter `hostname`
+en tete de tout script de resultat final.
