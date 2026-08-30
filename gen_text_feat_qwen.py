@@ -78,6 +78,8 @@ def main():
     parser.add_argument("--text_col", default=None)
     parser.add_argument("--mrl_dim", type=int, default=512)
     parser.add_argument("--no_instruction", action="store_true")
+    parser.add_argument("--custom_instruction", type=str, default=None,
+                         help="Remplace INSTRUCTION_NTU par ce texte")
     parser.add_argument("--batch_size", type=int, default=32)
     args = parser.parse_args()
 
@@ -98,7 +100,12 @@ def main():
     texts = df[text_col].tolist()
     print(f"{len(texts)} entrees chargees depuis {args.csv} (colonne '{text_col}')")
 
-    instruction = None if args.no_instruction else INSTRUCTION_NTU
+    if args.no_instruction:
+        instruction = None
+    elif args.custom_instruction:
+        instruction = args.custom_instruction
+    else:
+        instruction = INSTRUCTION_NTU
     encoder = Qwen3VLTextEncoder(MODEL_PATH, instruction,
                                   batch_size=args.batch_size, mrl_dim=args.mrl_dim)
 
