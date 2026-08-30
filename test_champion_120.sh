@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /srv/storage/stars@storage3.sophia.grid5000.fr/alakhlef/SK_zsl/FSVAE-clean-repro
 source /srv/storage/stars@storage3.sophia.grid5000.fr/alakhlef/miniconda3/etc/profile.d/conda.sh
+hostname
 conda activate gzsl-sar
 ntu=120 st=r
 ve=shift le=qwen512

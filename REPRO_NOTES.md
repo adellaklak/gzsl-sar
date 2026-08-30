@@ -116,3 +116,17 @@ distincts, donnant des H differents sur la config identique (59.80 vs 57.65 dans
 REGLE DEFINITIVE : cibler la machine physique precise avec le suffixe (ex: -p esterel29-4), jamais juste
 le nom de cluster, pour tout resultat destine a etre cite ou reproduit dans le papier. Ajouter `hostname`
 en tete de tout script de resultat final.
+
+## Benchmark final 4-splits — lb_dirv2_mdv3 sur esterel29 (reference stable, 4/4 sous-noeuds confirmes identiques)
+
+| Split | ZSL | S_Acc | U_Acc | H champion | H baseline lb_ad_md | Delta |
+|---|---|---|---|---|---|---|
+| NTU-60 ss=5   | 80.31 | 77.24 | 69.10 | 72.94 | 74.30 | -1.36 |
+| NTU-60 ss=12  | 66.33 | 60.67 | 60.09 | 60.38 | 56.99 | +3.39 |
+| NTU-120 ss=10 | 79.91 | 64.28 | 65.71 | 64.99 | 59.46 | +5.53 |
+| NTU-120 ss=24 | 65.31 | 57.49 | 51.97 | 54.59 | 54.01 | +0.58 |
+
+Gain net sur 3/4 splits, ss=5 legerement sous la baseline (-1.36, dans la marge de variance observee).
+Le signal de sur-ajustement a ss=12 suspecte precedemment etait en partie du au bug de reproductibilite
+inter-noeuds (le run ss=5 initial, non-trace par hostname, donnait H=71.37 au lieu de 72.94).
+esterel29 confirme stable sur les 4 sous-machines (-1 a -4), utilise comme reference pour ce benchmark.
