@@ -17,7 +17,7 @@ do
     wdir_1="results/"$ss"_r"
     wdir_2="results/"$ss"_r_val"
 
-    for tm in "lb_noinstr_dirv2_noinstr_mdv3_noinstr"
+    for tm in "lbni_dirv2ni_mdv3ni"
     do
         echo "-----------------------------------"
         echo "NTU"$ntu"u"$ss" "$tm
