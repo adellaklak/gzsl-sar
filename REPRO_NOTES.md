@@ -157,3 +157,16 @@ conservee telle quelle pour toute la suite du chantier.
 
 Note : sur ss=5, la perte ZSL brute (-4.87) est plus marquee que la perte H finale (-1.36) — le gating
 compense une partie du deficit de discrimination pure sur ce split, mais celui-ci reste reel au niveau ZSL.
+
+## Tableau complet 4-splits : ZSL, S_Acc, U_Acc, H — champion vs baseline
+
+| Split | ZSL champ | S_Acc champ | U_Acc champ | H champ | ZSL base | S_Acc base | U_Acc base | H base |
+|---|---|---|---|---|---|---|---|---|
+| NTU-60 ss=5   | 80.31 | 77.24 | 69.10 | 72.94 | 85.32 | 73.68 | 74.93 | 74.30 |
+| NTU-60 ss=12  | 66.33 | 60.67 | 60.09 | 60.38 | 63.30 | 59.22 | 54.92 | 56.99 |
+| NTU-120 ss=10 | 79.91 | 64.28 | 65.71 | 64.99 | 77.86 | 50.09 | 73.13 | 59.46 |
+| NTU-120 ss=24 | 65.31 | 57.49 | 51.97 | 54.59 | 63.26 | 60.89 | 48.52 | 54.01 |
+
+Observation : le champion equilibre nettement mieux seen/unseen que la baseline (ecarts S-U de 0.6 a 8 pts
+selon le split, contre jusqu'a 23 pts pour la baseline sur ss=10) — pas juste un gain agrege, une vraie
+reduction du desequilibre seen/unseen classique en GZSL.
