@@ -130,3 +130,18 @@ Gain net sur 3/4 splits, ss=5 legerement sous la baseline (-1.36, dans la marge 
 Le signal de sur-ajustement a ss=12 suspecte precedemment etait en partie du au bug de reproductibilite
 inter-noeuds (le run ss=5 initial, non-trace par hostname, donnait H=71.37 au lieu de 72.94).
 esterel29 confirme stable sur les 4 sous-machines (-1 a -4), utilise comme reference pour ce benchmark.
+
+## Chantier instruction Qwen — teste et clos, INSTRUCTION_NTU (deja en place) reste la meilleure
+
+lb_dirv2_mdv3, ss=12, esterel29, 3 variantes d'instruction d'encodage :
+
+| Instruction | ZSL | H | Delta vs default |
+|---|---|---|---|
+| aucune (--no_instruction) | 60.31 | 54.64 | -5.74 |
+| custom alignement-squelette (longue, technique) | 64.74 | 56.66 | -3.72 |
+| INSTRUCTION_NTU (default, deja utilisee partout) | 66.33 | 60.38 | reference |
+
+Confirme que l'instruction aide bien (noinstr nettement pire), mais l'instruction courte et generique deja
+en place bat une instruction plus longue et technique specifique au squelette/ShiftGCN. Hypothese : le detail
+technique dilue le signal semantique de l'action plutot que de le renforcer. Pas de v2 a tenter, INSTRUCTION_NTU
+conservee telle quelle pour toute la suite du chantier.
