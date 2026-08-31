@@ -145,3 +145,15 @@ Confirme que l'instruction aide bien (noinstr nettement pire), mais l'instructio
 en place bat une instruction plus longue et technique specifique au squelette/ShiftGCN. Hypothese : le detail
 technique dilue le signal semantique de l'action plutot que de le renforcer. Pas de v2 a tenter, INSTRUCTION_NTU
 conservee telle quelle pour toute la suite du chantier.
+
+## Complement benchmark 4-splits : ZSL pur (stage 1) vs H final
+
+| Split | ZSL champion | ZSL baseline | Delta ZSL | H champion | H baseline | Delta H |
+|---|---|---|---|---|---|---|
+| NTU-60 ss=5   | 80.31 | 85.18 | -4.87 | 72.94 | 74.30 | -1.36 |
+| NTU-60 ss=12  | 66.33 | 63.30 | +3.03 | 60.38 | 56.99 | +3.39 |
+| NTU-120 ss=10 | 79.91 | 77.86 | +2.05 | 64.99 | 59.46 | +5.53 |
+| NTU-120 ss=24 | 65.31 | 63.26 | +2.05 | 54.59 | 54.01 | +0.58 |
+
+Note : sur ss=5, la perte ZSL brute (-4.87) est plus marquee que la perte H finale (-1.36) — le gating
+compense une partie du deficit de discrimination pure sur ce split, mais celui-ci reste reel au niveau ZSL.
