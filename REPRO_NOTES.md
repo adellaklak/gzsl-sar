@@ -170,3 +170,17 @@ compense une partie du deficit de discrimination pure sur ce split, mais celui-c
 Observation : le champion equilibre nettement mieux seen/unseen que la baseline (ecarts S-U de 0.6 a 8 pts
 selon le split, contre jusqu'a 23 pts pour la baseline sur ss=10) — pas juste un gain agrege, une vraie
 reduction du desequilibre seen/unseen classique en GZSL.
+
+## Modality gap quantifie (lb_dirv2_mdv3, ss=12)
+
+Distance intra-squelette (centroides, classes differentes) : 1.166
+Distance intra-texte (classes differentes) : 0.989
+Distance texte<->squelette, MEME classe : 1.168
+Distance texte<->squelette, TOUTES paires : 1.552
+
+La bonne classe est ~25% plus proche que la moyenne (alignement relatif reel, coherent avec
+75% NN et 66% ZSL) mais la distance texte<->squelette meme-classe (1.168) est quasi identique
+a la distance squelette<->squelette inter-classes (1.166) : le texte de la bonne classe n'est
+pas plus proche du squelette que ne le serait un squelette d'une autre classe. Modality gap
+classique (Liang et al. 2022), pas un defaut de notre pipeline -- alignement modeste mais
+fonctionnel, coherent avec le score reel du modele plutot qu'un signe d'echec cache.
